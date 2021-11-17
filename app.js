@@ -29,14 +29,14 @@ global.io = io;
 // set comment as app locals
 app.locals.moment = moment;
 
-//database connection
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.mfwri.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
-
-// Connect to the MongoDB cluster
+// database connection
 mongoose
-  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("databasea connection successful!"))
-  .catch((err) => console.log("database connection failed!", err));
+  .connect(process.env.MONGO_CONNECTION_STRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("database connection successful!"))
+  .catch((err) => console.log(err));
 
 // request parsers
 app.use(express.json());
